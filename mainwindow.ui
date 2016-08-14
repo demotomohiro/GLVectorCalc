@@ -23,7 +23,20 @@
      </widget>
     </item>
     <item>
-     <widget class="QPlainTextEdit" name="GLSLTextEdit"/>
+     <widget class="QPlainTextEdit" name="GLSLTextEdit">
+      <property name="plainText">
+       <string>#version 430
+
+out float result;
+
+void main(){
+result = 321.0;
+}</string>
+      </property>
+      <property name="tabStopWidth">
+       <number>20</number>
+      </property>
+     </widget>
     </item>
     <item>
      <widget class="QLabel" name="ResultLabel">
