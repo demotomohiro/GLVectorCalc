@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>475</width>
-    <height>536</height>
+    <width>442</width>
+    <height>768</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,10 +16,42 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout_3">
     <item>
+     <widget class="QLabel" name="GLSLTextLabel">
+      <property name="text">
+       <string>Input GLSL Code:</string>
+      </property>
+     </widget>
+    </item>
+    <item>
      <widget class="QPlainTextEdit" name="GLSLTextEdit"/>
     </item>
     <item>
-     <widget class="QPlainTextEdit" name="ResultTextEdit"/>
+     <widget class="QLabel" name="ResultLabel">
+      <property name="text">
+       <string>Result:</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPlainTextEdit" name="ResultTextEdit">
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="GLSLLogLabel">
+      <property name="text">
+       <string>log:</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPlainTextEdit" name="GLSLLogTextEdit">
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+     </widget>
     </item>
     <item>
      <widget class="calcGLWidget" name="glWidget">
@@ -38,7 +70,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>475</width>
+     <width>442</width>
      <height>25</height>
     </rect>
    </property>
