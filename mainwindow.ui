@@ -91,8 +91,45 @@
    <class>calcGLWidget</class>
    <extends>QOpenGLWidget</extends>
    <header>calcglwidget.h</header>
+   <slots>
+    <signal>receivedError(QString)</signal>
+    <signal>calculated(QString)</signal>
+   </slots>
   </customwidget>
  </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>glWidget</sender>
+   <signal>receivedError(QString)</signal>
+   <receiver>GLSLLogTextEdit</receiver>
+   <slot>setPlainText(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>148</x>
+     <y>719</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>151</x>
+     <y>676</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>glWidget</sender>
+   <signal>calculated(QString)</signal>
+   <receiver>ResultTextEdit</receiver>
+   <slot>setPlainText(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>205</x>
+     <y>718</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>222</x>
+     <y>445</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
