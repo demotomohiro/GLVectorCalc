@@ -12,3 +12,8 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+void MainWindow::on_GLSLTextEdit_textChanged()
+{
+    ui->glWidget->calculate(ui->GLSLTextEdit->toPlainText());
+}

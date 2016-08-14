@@ -11,6 +11,12 @@ calcGLWidget::calcGLWidget(QWidget *parent):
     setFormat(format);
 }
 
+void calcGLWidget::calculate(const QString& userCode)
+{
+    this->userCode = userCode;
+    update();
+}
+
 void calcGLWidget::initializeGL() {
     connect(context(), &QOpenGLContext::aboutToBeDestroyed, this, &calcGLWidget::cleanup);
 
@@ -51,6 +57,15 @@ void calcGLWidget::initializeGL() {
 }
 
 void calcGLWidget::paintGL() {
+    if(!userShader->compileSourceCode(userCode)) {
+        emit receivedError(userShader->log());
+        return;
+    }
+
+    if(!userProgram->link()) {
+        emit receivedError(userProgram->log());
+    }
+
     userProgram->bind();
 
     glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 0, resultBuf);
@@ -68,6 +83,7 @@ void calcGLWidget::paintGL() {
     userProgram->release();
 
     emit calculated(QString::number(result));
+    emit receivedError("Calculation completed without errors");
 }
 
 void calcGLWidget::cleanup() {

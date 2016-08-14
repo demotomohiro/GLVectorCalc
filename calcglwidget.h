@@ -17,6 +17,9 @@ signals:
     void calculated(const QString& result);
     void receivedError(const QString& errMsg);
 
+public slots:
+    void calculate(const QString& userCode);
+
 protected:
     void initializeGL() Q_DECL_OVERRIDE;
     void paintGL() Q_DECL_OVERRIDE;
@@ -28,6 +31,7 @@ private:
     QOpenGLShader*          userShader;
     QOpenGLShaderProgram*   userProgram;
     GLuint                  resultBuf;
+    QString                 userCode;
 };
 
 #endif // CALCGLWIDGET_H
