@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>442</width>
-    <height>768</height>
+    <width>454</width>
+    <height>809</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,6 +15,24 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout_3">
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QLabel" name="vectorLengthLabel">
+        <property name="text">
+         <string>Vector Length:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QSpinBox" name="vectorLengthSpinBox">
+        <property name="minimum">
+         <number>1</number>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
     <item>
      <widget class="QLabel" name="GLSLTextLabel">
       <property name="text">
@@ -83,7 +101,7 @@ result = 321.0;
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>442</width>
+     <width>454</width>
      <height>25</height>
     </rect>
    </property>
@@ -107,6 +125,7 @@ result = 321.0;
    <slots>
     <signal>receivedError(QString)</signal>
     <signal>calculated(QString)</signal>
+    <slot>setVectorLength(int)</slot>
    </slots>
   </customwidget>
  </customwidgets>
@@ -120,7 +139,7 @@ result = 321.0;
    <hints>
     <hint type="sourcelabel">
      <x>148</x>
-     <y>719</y>
+     <y>749</y>
     </hint>
     <hint type="destinationlabel">
      <x>151</x>
@@ -136,11 +155,27 @@ result = 321.0;
    <hints>
     <hint type="sourcelabel">
      <x>205</x>
-     <y>718</y>
+     <y>748</y>
     </hint>
     <hint type="destinationlabel">
      <x>222</x>
      <y>445</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>vectorLengthSpinBox</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>glWidget</receiver>
+   <slot>setVectorLength(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>283</x>
+     <y>65</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>348</x>
+     <y>766</y>
     </hint>
    </hints>
   </connection>

@@ -3,7 +3,7 @@
 #include <QOpenGLShaderProgram>
 
 calcGLWidget::calcGLWidget(QWidget *parent):
-    QOpenGLWidget(parent)
+    QOpenGLWidget(parent), resultVec(1)
 {
     QSurfaceFormat format;
     format.setProfile(QSurfaceFormat::CoreProfile);
@@ -46,9 +46,6 @@ void calcGLWidget::initializeGL() {
     }
 
     glGenBuffers(1, &resultBuf);
-    glBindBuffer(GL_TRANSFORM_FEEDBACK_BUFFER, resultBuf);
-    glBufferData(GL_TRANSFORM_FEEDBACK_BUFFER, sizeof(float), 0, GL_DYNAMIC_COPY);
-    glBindBuffer(GL_TRANSFORM_FEEDBACK_BUFFER, 0);
 
     GLuint vao;
     glGenVertexArrays(1, &vao);
@@ -57,6 +54,9 @@ void calcGLWidget::initializeGL() {
 }
 
 void calcGLWidget::paintGL() {
+    if(resultVec.empty())
+        return;
+
     if(!userShader->compileSourceCode(userCode)) {
         emit receivedError(userShader->log());
         return;
@@ -68,21 +68,27 @@ void calcGLWidget::paintGL() {
 
     userProgram->bind();
 
+    glBindBuffer(GL_TRANSFORM_FEEDBACK_BUFFER, resultBuf);
+    glBufferData(GL_TRANSFORM_FEEDBACK_BUFFER, sizeof(float)*resultVec.size(), 0, GL_DYNAMIC_COPY);
+    glBindBuffer(GL_TRANSFORM_FEEDBACK_BUFFER, 0);
+
     glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 0, resultBuf);
     glBeginTransformFeedback(GL_POINTS);
-    glDrawArrays(GL_POINTS, 0, 1);
+    glDrawArrays(GL_POINTS, 0, resultVec.size());
     glEndTransformFeedback();
     glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 0, 0);
 
-    float result;
-
     glBindBuffer(GL_TRANSFORM_FEEDBACK_BUFFER, resultBuf);
-    glGetBufferSubData(GL_TRANSFORM_FEEDBACK_BUFFER, 0, sizeof(result), &result);
+    glGetBufferSubData(GL_TRANSFORM_FEEDBACK_BUFFER, 0, sizeof(float)*resultVec.size(), resultVec.data());
     glBindBuffer(GL_TRANSFORM_FEEDBACK_BUFFER, 0);
 
     userProgram->release();
 
-    emit calculated(QString::number(result));
+    QString resultText;
+    for(auto res : resultVec){
+        resultText += QString::number(res) + "\n";
+    }
+    emit calculated(resultText);
     emit receivedError("Calculation completed without errors");
 }
 
@@ -98,4 +104,9 @@ void calcGLWidget::cleanup() {
     resultBuf = 0;
 
     doneCurrent();
+}
+
+void calcGLWidget::setVectorLength(int vectorLength) {
+    resultVec.resize(vectorLength);
+    update();
 }

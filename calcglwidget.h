@@ -3,6 +3,7 @@
 
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions_4_3_Core>
+#include <QVector>
 
 QT_FORWARD_DECLARE_CLASS(QOpenGLShader)
 QT_FORWARD_DECLARE_CLASS(QOpenGLShaderProgram)
@@ -26,12 +27,14 @@ protected:
 
 private slots:
     void cleanup();
+    void setVectorLength(int vectorLength);
 
 private:
     QOpenGLShader*          userShader;
     QOpenGLShaderProgram*   userProgram;
-    GLuint                  resultBuf;
+    GLuint                  resultBuf       = 0;
     QString                 userCode;
+    QVector<float>          resultVec;
 };
 
 #endif // CALCGLWIDGET_H
