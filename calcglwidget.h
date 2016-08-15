@@ -22,6 +22,7 @@ public slots:
     void calculate(const QString& userCode);
     void setVectorLength(int vectorLength);
     void setResultType(const QString& resultType);
+    void setResultBase(const QString& resultBase);
 
 protected:
     void initializeGL() Q_DECL_OVERRIDE;
@@ -43,6 +44,7 @@ private:
     QString                 userCode;
     QVector<T32>            resultVec;
     QString                 resultType{"float"};
+    int                     resultBase      = 10;
 };
 
 #endif // CALCGLWIDGET_H

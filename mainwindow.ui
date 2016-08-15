@@ -43,6 +43,37 @@
         </item>
        </widget>
       </item>
+      <item>
+       <widget class="QLabel" name="resultBaseLabel">
+        <property name="text">
+         <string>Base:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="resultBaseComboBox">
+        <item>
+         <property name="text">
+          <string>10</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>2</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>8</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>16</string>
+         </property>
+        </item>
+       </widget>
+      </item>
      </layout>
     </item>
     <item>
@@ -160,6 +191,7 @@ result = 321 * gl_VertexID;
     <signal>calculated(QString)</signal>
     <slot>setVectorLength(int)</slot>
     <slot>setResultType(QString)</slot>
+    <slot>setResultBase(QString)</slot>
    </slots>
   </customwidget>
  </customwidgets>
@@ -208,7 +240,7 @@ result = 321 * gl_VertexID;
      <y>101</y>
     </hint>
     <hint type="destinationlabel">
-     <x>359</x>
+     <x>300</x>
      <y>864</y>
     </hint>
    </hints>
@@ -220,12 +252,28 @@ result = 321 * gl_VertexID;
    <slot>setResultType(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>386</x>
+     <x>223</x>
      <y>60</y>
     </hint>
     <hint type="destinationlabel">
-     <x>408</x>
+     <x>350</x>
      <y>828</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>resultBaseComboBox</sender>
+   <signal>currentIndexChanged(QString)</signal>
+   <receiver>glWidget</receiver>
+   <slot>setResultBase(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>396</x>
+     <y>66</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>405</x>
+     <y>820</y>
     </hint>
    </hints>
   </connection>

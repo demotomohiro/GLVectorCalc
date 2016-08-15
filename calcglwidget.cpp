@@ -28,6 +28,12 @@ void calcGLWidget::setResultType(const QString& resultType) {
     update();
 }
 
+void calcGLWidget::setResultBase(const QString& resultBase) {
+    this->resultBase = resultBase.toInt();
+
+    update();
+}
+
 void calcGLWidget::initializeGL() {
     connect(context(), &QOpenGLContext::aboutToBeDestroyed, this, &calcGLWidget::cleanup);
 
@@ -96,17 +102,20 @@ void calcGLWidget::paintGL() {
     userProgram->release();
 
     QString resultText;
+
     if(resultType == "float") {
         for(auto res : resultVec){
             resultText += QString::number(res.f) + "\n";
         }
-    }else if(resultType == "int") {
+    }else if(resultBase < 2 || resultBase > 36) {
+        resultText = "Unsupported base";
+    } else if(resultType == "int") {
         for(auto res : resultVec){
-            resultText += QString::number(res.i) + "\n";
+            resultText += QString::number(res.i, resultBase) + "\n";
         }
     }else if(resultType == "uint") {
         for(auto res : resultVec){
-            resultText += QString::number(res.u) + "\n";
+            resultText += QString::number(res.u, resultBase) + "\n";
         }
     }else{
         resultText = "Unknown type is selected";
