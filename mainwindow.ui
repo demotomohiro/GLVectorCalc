@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>454</width>
-    <height>809</height>
+    <height>900</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,6 +15,31 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout_3">
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QLabel" name="typeLabel">
+        <property name="text">
+         <string>Type:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="typeComboBox">
+        <item>
+         <property name="text">
+          <string>float</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>int</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+     </layout>
+    </item>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
@@ -28,6 +53,9 @@
        <widget class="QSpinBox" name="vectorLengthSpinBox">
         <property name="minimum">
          <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>8192</number>
         </property>
        </widget>
       </item>
@@ -48,7 +76,7 @@
 out float result;
 
 void main(){
-result = 321.0;
+result = 321 * gl_VertexID;
 }</string>
       </property>
       <property name="tabStopWidth">
@@ -126,6 +154,7 @@ result = 321.0;
     <signal>receivedError(QString)</signal>
     <signal>calculated(QString)</signal>
     <slot>setVectorLength(int)</slot>
+    <slot>setResultType(QString)</slot>
    </slots>
   </customwidget>
  </customwidgets>
@@ -138,8 +167,8 @@ result = 321.0;
    <slot>setPlainText(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>148</x>
-     <y>749</y>
+     <x>159</x>
+     <y>864</y>
     </hint>
     <hint type="destinationlabel">
      <x>151</x>
@@ -154,8 +183,8 @@ result = 321.0;
    <slot>setPlainText(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>205</x>
-     <y>748</y>
+     <x>216</x>
+     <y>864</y>
     </hint>
     <hint type="destinationlabel">
      <x>222</x>
@@ -170,12 +199,28 @@ result = 321.0;
    <slot>setVectorLength(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>283</x>
-     <y>65</y>
+     <x>441</x>
+     <y>101</y>
     </hint>
     <hint type="destinationlabel">
-     <x>348</x>
-     <y>766</y>
+     <x>359</x>
+     <y>864</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>typeComboBox</sender>
+   <signal>currentIndexChanged(QString)</signal>
+   <receiver>glWidget</receiver>
+   <slot>setResultType(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>386</x>
+     <y>60</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>408</x>
+     <y>828</y>
     </hint>
    </hints>
   </connection>

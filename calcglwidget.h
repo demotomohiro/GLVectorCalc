@@ -20,6 +20,8 @@ signals:
 
 public slots:
     void calculate(const QString& userCode);
+    void setVectorLength(int vectorLength);
+    void setResultType(const QString& resultType);
 
 protected:
     void initializeGL() Q_DECL_OVERRIDE;
@@ -27,14 +29,19 @@ protected:
 
 private slots:
     void cleanup();
-    void setVectorLength(int vectorLength);
 
 private:
+    union T32 {
+        float           f;
+        int             i;
+    };
+
     QOpenGLShader*          userShader;
     QOpenGLShaderProgram*   userProgram;
     GLuint                  resultBuf       = 0;
     QString                 userCode;
-    QVector<float>          resultVec;
+    QVector<T32>            resultVec;
+    QString                 resultType{"float"};
 };
 
 #endif // CALCGLWIDGET_H

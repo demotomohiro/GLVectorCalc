@@ -18,3 +18,10 @@ void MainWindow::on_GLSLTextEdit_textChanged()
 {
     ui->glWidget->calculate(ui->GLSLTextEdit->toPlainText());
 }
+
+void MainWindow::on_typeComboBox_currentIndexChanged(const QString &arg1)
+{
+    QString userCode = ui->GLSLTextEdit->toPlainText();
+    userCode.replace(QRegExp("out\\s+\\w+\\s+result\\s*;"), "out " + arg1 + " result;");
+    ui->GLSLTextEdit->setPlainText(userCode);
+}

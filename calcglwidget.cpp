@@ -17,6 +17,17 @@ void calcGLWidget::calculate(const QString& userCode)
     update();
 }
 
+void calcGLWidget::setVectorLength(int vectorLength) {
+    resultVec.resize(vectorLength);
+    update();
+}
+
+void calcGLWidget::setResultType(const QString& resultType) {
+    this->resultType = resultType;
+
+    update();
+}
+
 void calcGLWidget::initializeGL() {
     connect(context(), &QOpenGLContext::aboutToBeDestroyed, this, &calcGLWidget::cleanup);
 
@@ -79,14 +90,22 @@ void calcGLWidget::paintGL() {
     glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 0, 0);
 
     glBindBuffer(GL_TRANSFORM_FEEDBACK_BUFFER, resultBuf);
-    glGetBufferSubData(GL_TRANSFORM_FEEDBACK_BUFFER, 0, sizeof(float)*resultVec.size(), resultVec.data());
+    glGetBufferSubData(GL_TRANSFORM_FEEDBACK_BUFFER, 0, sizeof(T32)*resultVec.size(), resultVec.data());
     glBindBuffer(GL_TRANSFORM_FEEDBACK_BUFFER, 0);
 
     userProgram->release();
 
     QString resultText;
-    for(auto res : resultVec){
-        resultText += QString::number(res) + "\n";
+    if(resultType == "float") {
+        for(auto res : resultVec){
+            resultText += QString::number(res.f) + "\n";
+        }
+    }else if(resultType == "int") {
+        for(auto res : resultVec){
+            resultText += QString::number(res.i) + "\n";
+        }
+    }else{
+        resultText = "Unknown type is selected";
     }
     emit calculated(resultText);
     emit receivedError("Calculation completed without errors");
@@ -106,7 +125,3 @@ void calcGLWidget::cleanup() {
     doneCurrent();
 }
 
-void calcGLWidget::setVectorLength(int vectorLength) {
-    resultVec.resize(vectorLength);
-    update();
-}
