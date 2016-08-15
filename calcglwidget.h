@@ -34,6 +34,7 @@ private:
     union T32 {
         float           f;
         int             i;
+        unsigned int    u;
     };
 
     QOpenGLShader*          userShader;

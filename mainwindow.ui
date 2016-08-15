@@ -36,6 +36,11 @@
           <string>int</string>
          </property>
         </item>
+        <item>
+         <property name="text">
+          <string>uint</string>
+         </property>
+        </item>
        </widget>
       </item>
      </layout>

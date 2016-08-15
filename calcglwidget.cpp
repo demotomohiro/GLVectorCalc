@@ -104,6 +104,10 @@ void calcGLWidget::paintGL() {
         for(auto res : resultVec){
             resultText += QString::number(res.i) + "\n";
         }
+    }else if(resultType == "uint") {
+        for(auto res : resultVec){
+            resultText += QString::number(res.u) + "\n";
+        }
     }else{
         resultText = "Unknown type is selected";
     }
