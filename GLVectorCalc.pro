@@ -12,11 +12,11 @@ TARGET = GLVectorCalc
 TEMPLATE = app
 
 
-SOURCES += main.cpp\
-        mainwindow.cpp \
-    calcglwidget.cpp
+SOURCES +=  src/main.cpp\
+            src/mainwindow.cpp \
+            src/calcglwidget.cpp
 
-HEADERS  += mainwindow.h \
-    calcglwidget.h
+HEADERS +=  src/mainwindow.h \
+            src/calcglwidget.h
 
-FORMS    += mainwindow.ui
+FORMS    += src/mainwindow.ui
