@@ -12,3 +12,5 @@ This program might help you to learn GLSL and how bit operators and functions on
 ## Requirement to build
 * Qt5
 
+
+This software is released under the MIT License, see LICENSE.
