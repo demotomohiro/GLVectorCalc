@@ -102,6 +102,7 @@ void calcGLWidget::paintGL() {
     userProgram->release();
 
     QString resultText;
+    const int fieldWidth = resultBase == 2 ? 32 : 0;
 
     if(resultType == "float") {
         for(auto res : resultVec){
@@ -111,11 +112,11 @@ void calcGLWidget::paintGL() {
         resultText = "Unsupported base";
     } else if(resultType == "int") {
         for(auto res : resultVec){
-            resultText += QString::number(res.i, resultBase) + "\n";
+            resultText += QString("%1\n").arg(res.i, fieldWidth, resultBase, QLatin1Char('0'));
         }
     }else if(resultType == "uint") {
         for(auto res : resultVec){
-            resultText += QString::number(res.u, resultBase) + "\n";
+            resultText += QString("%1\n").arg(res.u, fieldWidth, resultBase, QLatin1Char('0'));
         }
     }else{
         resultText = "Unknown type is selected";
