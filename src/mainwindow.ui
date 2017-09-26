@@ -128,7 +128,8 @@
 out float result;
 
 void main(){
-result = 321 * gl_VertexID;
+float x = gl_VertexID;
+result = 2 * x;
 }</string>
       </property>
       <property name="tabStopWidth">

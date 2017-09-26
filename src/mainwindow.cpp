@@ -23,5 +23,6 @@ void MainWindow::on_typeComboBox_currentIndexChanged(const QString &arg1)
 {
     QString userCode = ui->GLSLTextEdit->toPlainText();
     userCode.replace(QRegExp("out\\s+\\w+\\s+result\\s*;"), "out " + arg1 + " result;");
+    userCode.replace(QRegExp("\\w+\\s+x\\s*=\\s*gl_VertexID\\s*;"), arg1 + " x = gl_VertexID;");
     ui->GLSLTextEdit->setPlainText(userCode);
 }
