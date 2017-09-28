@@ -7,6 +7,14 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     on_GLSLTextEdit_textChanged();
+
+    ui->GLSLTextEdit->setFocus();
+    ui->GLSLTextEdit->find(QRegExp("result\\s+=[^;]*;"));
+    QTextCursor cursor = ui->GLSLTextEdit->textCursor();
+    cursor.clearSelection();
+    const auto pos = cursor.position();
+    cursor.setPosition(pos > 1 ? pos-2 : pos);
+    ui->GLSLTextEdit->setTextCursor(cursor);
 }
 
 MainWindow::~MainWindow()
